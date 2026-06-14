@@ -30,12 +30,12 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 derive(columna1 = ERROR_FUNCTION(''),",
-				"          columna2 = ERROR_FUNCTION(''),",
-				"          columna3 = ERROR_FUNCTION(''),",
-				"          columna4 = ERROR_FUNCTION(''),",
-				"          columna5 = ERROR_FUNCTION(''),",
-				"          columna6 = ERROR_FUNCTION('')) ~> derivedColumn1"
+				"source1 derive(empleador_id = trim(empleador_id),",
+				"          nit = trim(nit),",
+				"          razon_social = trim(razon_social),",
+				"          tipo = trim(tipo),",
+				"          nro_patronal = trim(nro_patronal),",
+				"          municipio = trim(municipio)) ~> derivedColumn1"
 			]
 		}
 	}
