@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          paquete_id as string,",
@@ -24,7 +28,11 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(nombre = trim(nombre),",
+				"          contenido = trim(contenido),",
+				"          peso_estandar_kg = trim(peso_estandar_kg),",
+				"          costo_estimado_bs = trim(costo_estimado_bs)) ~> derivedColumn1"
 			]
 		}
 	}

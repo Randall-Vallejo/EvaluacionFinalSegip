@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          afiliacion_id as string,",
@@ -27,7 +31,15 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(ci_beneficiaria = trim(ci_beneficiaria),",
+				"          afiliacion_id = trim(afiliacion_id),",
+				"          empleador_id = trim(empleador_id),",
+				"          caja_id = trim(caja_id),",
+				"          fecha_afiliacion = trim(fecha_afiliacion),",
+				"          nro_matricula = trim(nro_matricula),",
+				"          tipo_subsidio = trim(tipo_subsidio),",
+				"          estado = trim(estado)) ~> derivedColumn1"
 			]
 		}
 	}
