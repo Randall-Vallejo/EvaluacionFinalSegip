@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          ID as string,",
@@ -24,7 +28,12 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(ID = trim(ID),",
+				"          Nombre = trim(Nombre),",
+				"          Sigla = trim(Sigla),",
+				"          Tipo = trim(Tipo),",
+				"          Estado = trim(Estado)) ~> derivedColumn1"
 			]
 		}
 	}

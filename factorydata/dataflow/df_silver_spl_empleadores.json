@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          empleador_id as string,",
@@ -25,7 +29,13 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(columna1 = ERROR_FUNCTION(''),",
+				"          columna2 = ERROR_FUNCTION(''),",
+				"          columna3 = ERROR_FUNCTION(''),",
+				"          columna4 = ERROR_FUNCTION(''),",
+				"          columna5 = ERROR_FUNCTION(''),",
+				"          columna6 = ERROR_FUNCTION('')) ~> derivedColumn1"
 			]
 		}
 	}
