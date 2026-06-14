@@ -1,0 +1,49 @@
+{
+	"name": "ds_bronze_spl_empleadores",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_storage_subsidio",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "spl_empleadores.csv",
+				"folderPath": "bronze/spl/",
+				"fileSystem": "datalake-subsidio"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "empleador_id",
+				"type": "String"
+			},
+			{
+				"name": "nit",
+				"type": "String"
+			},
+			{
+				"name": "razon_social",
+				"type": "String"
+			},
+			{
+				"name": "tipo",
+				"type": "String"
+			},
+			{
+				"name": "nro_patronal",
+				"type": "String"
+			},
+			{
+				"name": "municipio",
+				"type": "String"
+			}
+		]
+	}
+}
