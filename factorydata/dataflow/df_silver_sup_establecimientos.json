@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          establecimiento_id as string,",
@@ -28,7 +32,16 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(establecimiento_id = trim(establecimiento_id),",
+				"          codigo_snis = trim(codigo_snis),",
+				"          nombre = trim(nombre),",
+				"          tipo = trim(tipo),",
+				"          nivel_atencion = trim(nivel_atencion),",
+				"          municipio = trim(municipio),",
+				"          departamento = trim(departamento),",
+				"          red_salud = trim(red_salud),",
+				"          estado = trim(estado)) ~> derivedColumn1"
 			]
 		}
 	}

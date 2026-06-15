@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          entrega_id as string,",
@@ -29,7 +33,17 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(entrega_id = trim(entrega_id),",
+				"          boleta_id = trim(boleta_id),",
+				"          ci_beneficiaria = trim(ci_beneficiaria),",
+				"          establecimiento_id = trim(establecimiento_id),",
+				"          paquete_id = trim(paquete_id),",
+				"          paquete_nombre = trim(paquete_nombre),",
+				"          fecha_entrega = trim(fecha_entrega),",
+				"          lote_produccion = trim(lote_produccion),",
+				"          peso_paquete_kg = trim(peso_paquete_kg),",
+				"          fecha_proxima_entrega = trim(fecha_proxima_entrega)) ~> derivedColumn1"
 			]
 		}
 	}

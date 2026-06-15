@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          control_id as string,",
@@ -27,7 +31,15 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(control_id = trim(control_id),",
+				"          ci_beneficiaria = trim(ci_beneficiaria),",
+				"          establecimiento_id = trim(establecimiento_id),",
+				"          nro_control = trim(nro_control),",
+				"          fecha_control = trim(fecha_control),",
+				"          semana_gestacion = trim(semana_gestacion),",
+				"          peso_madre_kg = trim(peso_madre_kg),",
+				"          presion_arterial = trim(presion_arterial)) ~> derivedColumn1"
 			]
 		}
 	}

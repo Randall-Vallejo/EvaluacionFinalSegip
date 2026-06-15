@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          inscripcion_id as string,",
@@ -25,7 +29,13 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(inscripcion_id = trim(inscripcion_id),",
+				"          ci_beneficiaria = trim(ci_beneficiaria),",
+				"          establecimiento_id = trim(establecimiento_id),",
+				"          fecha_inscripcion = trim(fecha_inscripcion),",
+				"          semana_gestacion = trim(semana_gestacion),",
+				"          estado = trim(estado)) ~> derivedColumn1"
 			]
 		}
 	}
