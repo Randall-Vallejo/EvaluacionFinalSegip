@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          entrega_super_id as string,",
@@ -27,7 +31,15 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(entrega_super_id = trim(entrega_super_id),",
+				"          asignacion_id = trim(asignacion_id),",
+				"          ci_beneficiaria = trim(ci_beneficiaria),",
+				"          supermercado_id = trim(supermercado_id),",
+				"          fecha_retiro = trim(fecha_retiro),",
+				"          tipo_carne = trim(tipo_carne),",
+				"          cantidad_kg = trim(cantidad_kg),",
+				"          monto_bs = trim(monto_bs)) ~> derivedColumn1"
 			]
 		}
 	}
