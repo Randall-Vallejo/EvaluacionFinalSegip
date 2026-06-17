@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "dimensiones/dim_supermercado/",
-				"fileSystem": "gold"
+				"folderPath": "gold/dimensiones/dim_supermercado/",
+				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

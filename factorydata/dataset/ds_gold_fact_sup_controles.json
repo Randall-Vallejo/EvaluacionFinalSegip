@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "hechos/fact_sup_controles/",
-				"fileSystem": "gold"
+				"folderPath": "gold/hechos/fact_sup_controles/",
+				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

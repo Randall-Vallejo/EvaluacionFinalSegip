@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "dimensiones/dim_empleador/",
-				"fileSystem": "gold"
+				"folderPath": "gold/dimensiones/dim_empleador/",
+				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

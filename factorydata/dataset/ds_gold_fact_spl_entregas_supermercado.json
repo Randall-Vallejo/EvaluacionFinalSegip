@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "hechos/fact_spl_entregas_supermercado/",
-				"fileSystem": "gold"
+				"folderPath": "gold/hechos/fact_spl_entregas_supermercado/",
+				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
