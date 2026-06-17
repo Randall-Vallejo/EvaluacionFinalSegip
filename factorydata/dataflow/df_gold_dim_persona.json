@@ -12,18 +12,53 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_gold_dim_persona",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "select1"
 				}
 			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          CI as string,",
+				"          Nombres as string,",
+				"          {Ap. Paterno} as string,",
+				"          {Ap. Materno} as string,",
+				"          {Fecha Nac.} as string,",
+				"          {Género} as string,",
+				"          {Estado Civil} as string,",
+				"          Municipio as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 select(skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"source1 select(mapColumn(",
+				"          ci = CI,",
+				"          nombres = Nombres,",
+				"          apellido_paterno = {Ap. Paterno},",
+				"          apellido_materno = {Ap. Materno},",
+				"          fecha_nacimiento = {Fecha Nac.},",
+				"          genero = {Género},",
+				"          estado_civil = {Estado Civil},",
+				"          municipio = Municipio",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}

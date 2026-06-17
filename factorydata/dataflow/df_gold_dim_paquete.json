@@ -19,7 +19,14 @@
 				}
 			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          paquete_id as short,",
+				"          nombre as string,",
+				"          contenido as string,",
+				"          peso_estandar_kg as double,",
+				"          costo_estimado_bs as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
 				"source1 select(skipDuplicateMapInputs: true,",

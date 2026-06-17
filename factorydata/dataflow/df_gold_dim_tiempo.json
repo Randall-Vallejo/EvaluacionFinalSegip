@@ -19,10 +19,30 @@
 				}
 			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          control_id as short,",
+				"          ci_beneficiaria as string,",
+				"          establecimiento_id as short,",
+				"          nro_control as short,",
+				"          fecha_control as string,",
+				"          semana_gestacion as short,",
+				"          peso_madre_kg as double,",
+				"          presion_arterial as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 select(skipDuplicateMapInputs: true,",
+				"source1 select(mapColumn(",
+				"          control_id,",
+				"          ci_beneficiaria,",
+				"          establecimiento_id,",
+				"          nro_control,",
+				"          fecha_control,",
+				"          semana_gestacion,",
+				"          peso_madre_kg,",
+				"          presion_arterial",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1"
 			]
 		}
