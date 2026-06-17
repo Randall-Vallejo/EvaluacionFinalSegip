@@ -12,10 +12,21 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_silver_spl_afiliaciones",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
 				}
 			],
 			"scriptLines": [
@@ -39,7 +50,15 @@
 				"          fecha_afiliacion = trim(fecha_afiliacion),",
 				"          nro_matricula = trim(nro_matricula),",
 				"          tipo_subsidio = trim(tipo_subsidio),",
-				"          estado = trim(estado)) ~> derivedColumn1"
+				"          estado = trim(estado)) ~> derivedColumn1",
+				"derivedColumn1 derive(fecha_afiliacion = toString(toDate(fecha_afiliacion), 'dd/MM/yyyy')) ~> derivedColumn2",
+				"derivedColumn2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
