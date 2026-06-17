@@ -12,10 +12,24 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_silver_sup_controles",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -39,7 +53,17 @@
 				"          fecha_control = trim(fecha_control),",
 				"          semana_gestacion = trim(semana_gestacion),",
 				"          peso_madre_kg = trim(peso_madre_kg),",
-				"          presion_arterial = trim(presion_arterial)) ~> derivedColumn1"
+				"          presion_arterial = trim(presion_arterial)) ~> derivedColumn1",
+				"derivedColumn1 derive(fecha_control = toString(     iif(         substring(replace(trim(fecha_control), '/', '-'), 5, 1) == '-',         toDate(replace(trim(fecha_control), '/', '-'), 'yyyy-MM-dd'),         toDate(replace(trim(fecha_control), '/', '-'), 'dd-MM-yyyy')     ),     'dd/MM/yyyy' )) ~> derivedColumn2",
+				"derivedColumn2 filter(!isNull(presion_arterial) &&",
+				"!isNull(fecha_control)) ~> filter1",
+				"filter1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
