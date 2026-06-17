@@ -12,10 +12,24 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_gold_dim_tiempo",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "select1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
 				}
 			],
 			"scriptLines": [
@@ -32,18 +46,28 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 select(mapColumn(",
-				"          control_id,",
-				"          ci_beneficiaria,",
-				"          establecimiento_id,",
-				"          nro_control,",
-				"          fecha_control,",
-				"          semana_gestacion,",
-				"          peso_madre_kg,",
-				"          presion_arterial",
+				"derivedColumn1 select(mapColumn(",
+				"          fecha,",
+				"          anio,",
+				"          mes,",
+				"          dia,",
+				"          trimestre",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"derivedColumn2 derive(fecha = toString(fecha_date, 'dd/MM/yyyy'),",
+				"          anio = toInteger(toString(fecha_date, 'yyyy')),",
+				"          mes = toInteger(toString(fecha_date, 'MM')),",
+				"          dia = toInteger(toString(fecha_date, 'dd')),",
+				"          trimestre = iif(     toInteger(toString(fecha_date, 'MM')) <= 3, 1,     iif(         toInteger(toString(fecha_date, 'MM')) <= 6, 2,         iif(             toInteger(toString(fecha_date, 'MM')) <= 9, 3, 4         )     ) )) ~> derivedColumn1",
+				"source1 derive(fecha_date = toDate(fecha_control, 'dd/MM/yyyy')) ~> derivedColumn2",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
