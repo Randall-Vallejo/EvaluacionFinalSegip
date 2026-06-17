@@ -12,10 +12,21 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_silver_spl_asignaciones",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
 				}
 			],
 			"scriptLines": [
@@ -39,7 +50,15 @@
 				"          monto_bs = trim(monto_bs),",
 				"          monto_productos = trim(monto_productos),",
 				"          monto_carnes = trim(monto_carnes),",
-				"          estado = trim(estado)) ~> derivedColumn1"
+				"          estado = trim(estado)) ~> derivedColumn1",
+				"derivedColumn1 derive(estado = iif(     isNull(estado) || trim(estado) == '',     'Sin Estado',     initCap(lower(trim(estado))) )) ~> derivedColumn2",
+				"derivedColumn2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
