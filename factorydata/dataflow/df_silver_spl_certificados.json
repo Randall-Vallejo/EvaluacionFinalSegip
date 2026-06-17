@@ -12,10 +12,24 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_silver_spl_certificados",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -37,7 +51,18 @@
 				"          semana_gestacion = trim(semana_gestacion),",
 				"          fecha_probable_parto = trim(fecha_probable_parto),",
 				"          medico_responsable = trim(medico_responsable),",
-				"          estado = trim(estado)) ~> derivedColumn1"
+				"          estado = trim(estado)) ~> derivedColumn1",
+				"derivedColumn1 derive(fecha_probable_parto = toString(toDate(fecha_probable_parto), 'dd/MM/yyyy'),",
+				"          fecha_emision = toString(toDate(fecha_emision), 'dd/MM/yyyy')) ~> derivedColumn2",
+				"derivedColumn2 filter(!isNull(semana_gestacion)",
+				"&& !isNull(fecha_probable_parto)) ~> filter1",
+				"filter1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}

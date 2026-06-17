@@ -12,10 +12,27 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_silver_spl_entregas_supermercado",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn3"
 				}
 			],
 			"scriptLines": [
@@ -39,7 +56,20 @@
 				"          fecha_retiro = trim(fecha_retiro),",
 				"          tipo_carne = trim(tipo_carne),",
 				"          cantidad_kg = trim(cantidad_kg),",
-				"          monto_bs = trim(monto_bs)) ~> derivedColumn1"
+				"          monto_bs = trim(monto_bs)) ~> derivedColumn1",
+				"derivedColumn1 derive(fecha_retiro = iif(     isNull(fecha_retiro) || trim(fecha_retiro) == '',     '',     toString(         iif(             substring(replace(trim(fecha_retiro), '/', '-'), 5, 1) == '-',             toDate(replace(trim(fecha_retiro), '/', '-'), 'yyyy-MM-dd'),             toDate(replace(trim(fecha_retiro), '/', '-'), 'dd-MM-yyyy')         ),         'dd/MM/yyyy'     ) )) ~> derivedColumn2",
+				"derivedColumn2 filter(!isNull(fecha_retiro)",
+				"&& trim(fecha_retiro) != ''",
+				"&& !isNull(tipo_carne)",
+				") ~> filter1",
+				"filter1 derive(tipo_carne = initCap(lower(trim(tipo_carne)))) ~> derivedColumn3",
+				"derivedColumn3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}

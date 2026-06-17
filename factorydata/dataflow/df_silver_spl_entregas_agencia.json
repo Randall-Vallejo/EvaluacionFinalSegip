@@ -12,10 +12,27 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_silver_spl_entregas_agencia",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn3"
 				}
 			],
 			"scriptLines": [
@@ -39,7 +56,25 @@
 				"          productos = trim(productos),",
 				"          lote = trim(lote),",
 				"          peso_kg = trim(peso_kg),",
-				"          punto_entrega = trim(punto_entrega)) ~> derivedColumn1"
+				"          punto_entrega = trim(punto_entrega)) ~> derivedColumn1",
+				"derivedColumn1 derive(fecha_entrega = toString(toDate(fecha_entrega), 'dd/MM/yyyy')) ~> derivedColumn2",
+				"derivedColumn2 filter(!isNull(asignacion_id)",
+				"&& !isNull(ci_beneficiaria)",
+				"&& !isNull(fecha_entrega)",
+				"&& fecha_entrega != ''",
+				"&& !isNull(productos)",
+				"&& productos != ''",
+				"&& !isNull(lote)",
+				"&& lote != '') ~> filter1",
+				"filter1 derive(punto_entrega = regexReplace(upper(trim(punto_entrega)), ' +', ' '),",
+				"          productos = regexReplace(upper(trim(productos)), ' +', ' ')) ~> derivedColumn3",
+				"derivedColumn3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
