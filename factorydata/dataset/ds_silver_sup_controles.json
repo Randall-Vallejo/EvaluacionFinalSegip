@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "controles.csv",
-				"folderPath": "silver/sup",
+				"folderPath": "silver/sup/controles/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",

@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "personas.csv",
-				"folderPath": "silver/segip",
+				"folderPath": "silver/segip/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",

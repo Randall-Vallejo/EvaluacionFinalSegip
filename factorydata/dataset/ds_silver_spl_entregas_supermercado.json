@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "entregas_supermercado.csv",
-				"folderPath": "silver/spl",
+				"folderPath": "silver/spl/entregas_supermercado/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",

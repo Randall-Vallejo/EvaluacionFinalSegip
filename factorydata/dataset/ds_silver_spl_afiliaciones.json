@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "afiliaciones.csv",
-				"folderPath": "silver/spl",
+				"folderPath": "silver/spl/afiliaciones/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",

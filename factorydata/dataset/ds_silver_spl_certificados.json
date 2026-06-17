@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "certificados.csv",
-				"folderPath": "silver/spl",
+				"folderPath": "silver/spl/certificados/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",

@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "asignaciones.csv",
-				"folderPath": "silver/spl",
+				"folderPath": "silver/spl/asignaciones/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",

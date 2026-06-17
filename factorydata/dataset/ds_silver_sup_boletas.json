@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "boletas.csv",
-				"folderPath": "silver/sup",
+				"folderPath": "silver/sup/boletas/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",

@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "empleadores.csv",
-				"folderPath": "silver/spl",
+				"folderPath": "silver/spl/empleadores/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",
