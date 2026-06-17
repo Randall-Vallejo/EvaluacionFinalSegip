@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "fact_spl_asignaciones.csv",
-				"folderPath": "hechos",
+				"folderPath": "hechos/fact_spl_asignaciones/",
 				"fileSystem": "gold"
 			},
 			"columnDelimiter": ",",

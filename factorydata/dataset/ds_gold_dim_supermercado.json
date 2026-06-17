@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "dim_supermercado.csv",
-				"folderPath": "dimensiones",
+				"folderPath": "dimensiones/dim_supermercado/",
 				"fileSystem": "gold"
 			},
 			"columnDelimiter": ",",

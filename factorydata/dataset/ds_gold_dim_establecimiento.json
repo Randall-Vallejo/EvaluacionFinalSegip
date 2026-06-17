@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "dim_establecimiento.csv",
-				"folderPath": "dimensiones",
+				"folderPath": "dimensiones/dim_establecimiento/",
 				"fileSystem": "gold"
 			},
 			"columnDelimiter": ",",

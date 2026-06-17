@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "fact_sup_entregas.csv",
-				"folderPath": "hechos",
+				"folderPath": "hechos/fact_sup_entregas/",
 				"fileSystem": "gold"
 			},
 			"columnDelimiter": ",",

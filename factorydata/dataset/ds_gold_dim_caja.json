@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "dim_caja.csv",
-				"folderPath": "dimensiones",
+				"folderPath": "dimensiones/dim_caja/",
 				"fileSystem": "gold"
 			},
 			"columnDelimiter": ",",
