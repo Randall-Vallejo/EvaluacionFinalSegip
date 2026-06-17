@@ -1,0 +1,14 @@
+{
+	"name": "df_gold_fact_spl_entregas_supermercado",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				""
+			]
+		}
+	}
+}
