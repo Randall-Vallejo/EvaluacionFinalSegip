@@ -1,0 +1,24 @@
+{
+	"name": "ds_gold_dim_empleador",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_storage_subsidio",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dim_empleador.csv",
+				"folderPath": "dimensiones",
+				"fileSystem": "gold"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
