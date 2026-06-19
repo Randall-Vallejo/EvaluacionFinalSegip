@@ -1,5 +1,5 @@
 {
-	"name": "df_gold_fact_spl_entregas_agencia",
+	"name": "df_gold_agg_sup_municipio_paquete",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "ds_gold_fact_spl_entregas_agencia",
+						"referenceName": "ds_gold_fact_sup_entregas_detalle",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"

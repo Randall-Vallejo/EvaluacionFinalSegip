@@ -1,5 +1,5 @@
 {
-	"name": "df_gold_fact_spl_asignaciones",
+	"name": "df_gold_agg_spl_gestion_estado",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -14,10 +14,6 @@
 			],
 			"sinks": [
 				{
-					"dataset": {
-						"referenceName": "ds_gold_fact_spl_asignaciones",
-						"type": "DatasetReference"
-					},
 					"name": "sink1"
 				}
 			],
@@ -44,11 +40,10 @@
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     preCommands: [],",
+				"     postCommands: []) ~> sink1"
 			]
 		}
 	}

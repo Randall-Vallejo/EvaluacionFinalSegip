@@ -184,7 +184,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df_gold_fact_spl_asignaciones",
+						"referenceName": "df_gold_agg_spl_gestion_estado",
 						"type": "DataFlowReference"
 					},
 					"compute": {
@@ -208,7 +208,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df_gold_fact_spl_entregas_agencia",
+						"referenceName": "df_gold_agg_sup_municipio_paquete",
 						"type": "DataFlowReference"
 					},
 					"compute": {
@@ -232,7 +232,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df_gold_fact_spl_entregas_supermercado",
+						"referenceName": "df_gold_fact_sup_entregas_detalle",
 						"type": "DataFlowReference"
 					},
 					"compute": {
@@ -255,10 +255,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "df_gold_fact_sup_controles",
-						"type": "DataFlowReference"
-					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
@@ -279,10 +275,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "df_gold_fact_sup_entregas",
-						"type": "DataFlowReference"
-					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"

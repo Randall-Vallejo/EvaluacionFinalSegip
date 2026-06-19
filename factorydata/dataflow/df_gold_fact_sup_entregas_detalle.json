@@ -1,21 +1,35 @@
 {
-	"name": "df_gold_fact_spl_entregas_supermercado",
+	"name": "df_gold_fact_sup_entregas_detalle",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "ds_silver_spl_entregas_supermercado",
+						"referenceName": "ds_silver_sup_entregas",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_silver_sup_establecimientos",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_silver_sup_paquetes",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "ds_gold_fact_spl_entregas_supermercado",
+						"referenceName": "ds_gold_agg_sup_municipio_paquete",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -24,24 +38,24 @@
 			"transformations": [
 				{
 					"name": "select1"
+				},
+				{
+					"name": "union1"
 				}
 			],
 			"scriptLines": [
-				"source(output(",
-				"          entrega_super_id as short,",
-				"          asignacion_id as short,",
-				"          ci_beneficiaria as string,",
-				"          supermercado_id as short,",
-				"          fecha_retiro as string,",
-				"          tipo_carne as string,",
-				"          cantidad_kg as double,",
-				"          monto_bs as double",
-				"     ),",
-				"     allowSchemaDrift: true,",
+				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 select(skipDuplicateMapInputs: true,",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source3",
+				"union1 select(skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
+				"source1 union(byName: true)~> union1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
