@@ -1,5 +1,5 @@
 {
-	"name": "ds_gold_fact_sup_entregas",
+	"name": "ds_gold_agg_spl_gestion_estado",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_storage_subsidio",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "gold/hechos/fact_sup_entregas/",
+				"folderPath": "gold/hechos/agg_spl_gestion_estado/",
 				"fileSystem": "datalake-subsidio"
 			},
 			"columnDelimiter": ",",
