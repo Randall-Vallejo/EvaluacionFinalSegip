@@ -5,8 +5,11 @@
 		"factoryName": {
 			"value": "adf-subsidio-final"
 		},
-		"ls_storage_subsidio_connectionString": {
+		"ls_storage_subsidio_accountKey": {
 			"value": ""
+		},
+		"ls_storage_subsidio_properties_typeProperties_url": {
+			"value": "https://stsubsidiofinal.dfs.core.windows.net/"
 		}
 	}
 }

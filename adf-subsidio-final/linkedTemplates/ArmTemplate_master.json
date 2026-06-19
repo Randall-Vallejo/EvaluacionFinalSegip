@@ -7,9 +7,13 @@
 			"metadata": "Nombre de instancia de Data Factory",
 			"defaultValue": "adf-subsidio-final"
 		},
-		"ls_storage_subsidio_connectionString": {
+		"ls_storage_subsidio_accountKey": {
 			"type": "secureString",
-			"metadata": "Cadena protegida para \"connectionString\"de \"ls_storage_subsidio\""
+			"metadata": "Cadena protegida para \"accountKey\"de \"ls_storage_subsidio\""
+		},
+		"ls_storage_subsidio_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stsubsidiofinal.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -38,12 +42,75 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"ls_storage_subsidio_connectionString": {
-						"value": "[parameters('ls_storage_subsidio_connectionString')]"
+					"ls_storage_subsidio_accountKey": {
+						"value": "[parameters('ls_storage_subsidio_accountKey')]"
+					},
+					"ls_storage_subsidio_properties_typeProperties_url": {
+						"value": "[parameters('ls_storage_subsidio_properties_typeProperties_url')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "adf-subsidio-final_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-subsidio-final_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adf-subsidio-final_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-subsidio-final_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "adf-subsidio-final_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-subsidio-final_ArmTemplate_2')]"
+			]
 		}
 	]
 }
