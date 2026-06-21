@@ -12,12 +12,67 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_gold_agg_sup_municipio_paquete",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "select1"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          entrega_id as short,",
+				"          boleta_id as short,",
+				"          ci_beneficiaria as string,",
+				"          establecimiento_id as short,",
+				"          paquete_id as short,",
+				"          paquete_nombre as string,",
+				"          fecha_entrega as string,",
+				"          lote_produccion as string,",
+				"          peso_paquete_kg as double,",
+				"          nombre_establecimiento as string,",
+				"          municipio as string,",
+				"          departamento as string,",
+				"          red_salud as string,",
+				"          contenido as string,",
+				"          costo_estimado_bs as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 aggregate(groupBy(municipio,",
+				"          departamento,",
+				"          paquete_nombre),",
+				"     cantidad_entregas = count(entrega_id),",
+				"          peso_total_kg = sum(toDouble(peso_paquete_kg)),",
+				"          costo_total_estimado = sum(toDouble(costo_estimado_bs))) ~> aggregate1",
+				"aggregate1 select(mapColumn(",
+				"          municipio,",
+				"          departamento,",
+				"          paquete_nombre,",
+				"          cantidad_entregas,",
+				"          peso_total_kg,",
+				"          costo_total_estimado",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
