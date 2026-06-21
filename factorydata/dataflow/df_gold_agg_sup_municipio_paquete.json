@@ -54,7 +54,7 @@
 				"          departamento,",
 				"          paquete_nombre),",
 				"     cantidad_entregas = count(entrega_id),",
-				"          peso_total_kg = sum(toDouble(peso_paquete_kg)),",
+				"          peso_total_kg = round(sum(toDouble(peso_paquete_kg)), 2),",
 				"          costo_total_estimado = sum(toDouble(costo_estimado_bs))) ~> aggregate1",
 				"aggregate1 select(mapColumn(",
 				"          municipio,",

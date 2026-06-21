@@ -14,10 +14,17 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "ds_gold_agg_spl_gestion_estado",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
 			"transformations": [
+				{
+					"name": "aggregate1"
+				},
 				{
 					"name": "select1"
 				}
@@ -36,14 +43,29 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 select(skipDuplicateMapInputs: true,",
+				"source1 aggregate(groupBy(gestion,",
+				"          estado),",
+				"     cantidad_asignaciones = count(asignacion_id),",
+				"          monto_total_bs = round(sum(toDouble(monto_bs)), 2),",
+				"          monto_productos_total = round(sum(toDouble(monto_productos)), 2),",
+				"          monto_carnes_total = round(sum(toDouble(monto_carnes)), 2)) ~> aggregate1",
+				"aggregate1 select(mapColumn(",
+				"          gestion,",
+				"          estado,",
+				"          cantidad_asignaciones,",
+				"          monto_total_bs,",
+				"          monto_productos_total,",
+				"          monto_carnes_total",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
+				"     umask: 0022,",
 				"     preCommands: [],",
-				"     postCommands: []) ~> sink1"
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
